@@ -1,0 +1,28 @@
+{
+  "name": "api-mrcoach",
+  "version": "1.0.0",
+  "description": "proyecto backend mr.Coach",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Waldooh/BackEndMrCoach.git"
+  },
+  "author": "@Waldooh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Waldooh/BackEndMrCoach/issues"
+  },
+  "homepage": "https://github.com/Waldooh/BackEndMrCoach#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.1.5",
+    "nodemon": "^2.0.15",
+    "pm2": "^5.1.2"
+  }
+}
