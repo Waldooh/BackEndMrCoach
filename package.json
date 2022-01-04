@@ -23,6 +23,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.5",
     "nodemon": "^2.0.15",
-    "pm2": "^5.1.2"
+    "pm2": "^5.1.2",
+    "uuid-mongodb": "^2.5.0"
   }
 }

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router()
-const routines = require("../usescases/routines");
+const routines = require("../usecases/routines");
 
 
   router.patch("/:id", async (req, res, next) => {
