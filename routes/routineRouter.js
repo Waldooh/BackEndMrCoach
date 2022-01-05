@@ -1,5 +1,5 @@
 const express = require("express");
-const router = express.Router()
+const router = express.Router();
 const routines = require("../usecases/routines");
 
 router.get("/", async (req, res, next) => {
@@ -15,11 +15,10 @@ router.get("/", async (req, res, next) => {
     };
 });
 
-router.post ("/", 
-async (request, response, next)=> {
+router.post ("/", async (request, response, next)=> {
   try { 
-    const routineData= request.body; 
-    const routineCreated= await routines.create(routineData);
+    const routineData = request.body; 
+    const routineCreated = await routines.create(routineData);
 
     response.status(201).json({ 
       ok:true,
@@ -27,48 +26,44 @@ async (request, response, next)=> {
       payload: routineCreated,
       
     });
-  }catch (error){
+  } catch (error) {
     next(error);
   }
 }); 
 
 
-router.get(
-    "/:id",
-    async (req, res, next) => {
-      try {
-        const { id } = req.params;
+router.get("/:id", async (req, res, next) => {
+  try {
+    const { id } = req.params;
   
-        const payload = await routines.getById(id);
+    const payload = await routines.getById(id);
   
-        res.status(200).json({
-          ok: true,
-          message: "Done!",
-          payload,
-        });
-      } catch (err) {
-        next(err);
-      }
-    }
-  );
+      res.status(200).json({
+        ok: true,
+        message: "Done!",
+        payload,
+      });
+  } catch (err) {
+    next(err);
+  }
+});
 
-  router.patch("/:id", 
-  async (request, response, next)=> {
-    try {
-      const {id}= request.params;
-      const routineData= request.body;
-      const routineUpdate= await routines.update(id, routineData); 
-      response.status(201).json({
-        ok:true,
-        message: "Routine updated successfully",
-        payload:{
-          user: routineUpdate,
-        }
-      })
-    }catch (error){
-      next (error);
-    }
-  });
+router.patch("/:id", async (request, response, next)=> {
+  try {
+    const { id } = request.params;
+    const routineData = request.body;
+    const routineUpdate = await routines.update(id, routineData); 
+    response.status(201).json({
+      ok: true,
+      message: "Routine updated successfully",
+      payload: {
+        user: routineUpdate,
+      }
+    })
+  }catch (error){
+    next (error);
+  }
+});
 
 
 

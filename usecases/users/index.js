@@ -9,10 +9,7 @@ const get = async () => {
 };
 
 const getById = async (id) => {
-
-    return await User.model.findById(
-      id
-    ).exec();
+    return await User.model.findById(id).exec();
   };
   
   
@@ -51,7 +48,6 @@ const getByUsername = async (username) => {
 
 const authenticate = async (user, password) => {
     const hash = user.password;
-  
     return await encrypt.verifyPassword(password, hash);
   };
   

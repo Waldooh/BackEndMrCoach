@@ -2,7 +2,7 @@ const { json } = require("express");
 const mongoose = require("mongoose"); 
 const Schema = mongoose.Schema;
 
-const schema= new Schema({
+const schema = new Schema({
     title: {
         type: String,
         maxlength: 40,
@@ -54,7 +54,7 @@ const schema= new Schema({
     },
 }); 
 
-module.exports= {
+module.exports = {
     model: mongoose.model("routine", schema),
     schema,
 }
