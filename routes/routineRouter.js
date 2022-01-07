@@ -48,23 +48,46 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-router.patch("/:id", async (request, response, next)=> {
+// router.patch("/:id", async (request, response, next)=> {
+//   try {
+//     const { id } = request.params;
+//     const routineData = request.body;
+//     const routineUpdate = await routines.update(id, routineData); 
+//     response.status(201).json({
+//       ok: true,
+//       message: "Routine updated successfully",
+//       payload: {
+//         user: routineUpdate,
+//       }
+//     })
+//   } catch (error){
+//     next (error);
+//   }
+// });
+
+router.patch("/:id", async (req, res, next) => {
+  const { id } = req.params;
+
   try {
-    const { id } = request.params;
-    const routineData = request.body;
-    const routineUpdate = await routines.update(id, routineData); 
-    response.status(201).json({
+    const routineUpdated = await routines.updateByStatus(id);
+    
+    if (!routineUpdated) {
+      res.status(500).json({
+        ok: false,
+        message: "Routine don't exist",
+      });
+    }
+    res.status(201).json({
       ok: true,
-      message: "Routine updated successfully",
+      message: "Routine disable",
       payload: {
-        user: routineUpdate,
-      }
-    })
-  }catch (error){
-    next (error);
+        product: routineUpdated,
+      },
+    });
+  } catch (err) {
+    next(err);
   }
 });
-
 
 
 module.exports = router;

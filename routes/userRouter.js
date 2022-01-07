@@ -40,7 +40,7 @@ router.patch("/:id", async (req, res) => {
     name, 
     lastName, 
     age, 
-    birthDay, 
+    birthDate, 
     gender, 
     email,
     initialTime,
@@ -57,7 +57,7 @@ router.patch("/:id", async (req, res) => {
   if(name) newUser = {...newUser, name}
   if(lastName) newUser = {...newUser, lastName}
   if(age) newUser = {...newUser, age}
-  if(birthDay) newUser = {...newUser, birthDay}
+  if(birthDate) newUser = {...newUser, birthDate}
   if(gender) newUser = {...newUser, gender}
   if(email) newUser = {...newUser, email}
   if(initialTime) newUser = {...newUser, initialTime}
