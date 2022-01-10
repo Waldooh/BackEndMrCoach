@@ -72,8 +72,9 @@ const schema = new Schema({
         minlength: 1,
     },
     account: {
-        type: Number,
-        max: 3,
+        type: String,
+        enum: ['usuario', 'entrenador', 'alumno'],
+        required: true
     },
 }, { timestamps: true }); 
 

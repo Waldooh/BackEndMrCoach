@@ -18,7 +18,7 @@ const create = async (userData) => {
     const {userName, firstName, lastName, password, age, birthDate, gender, email, mobileNumber, state, city, avatar} = userData;
     const uuid = MUUID.v1();
     const today = new Date();
-    const account = 1;
+    const account = "usuario";
     const status = 1;
     const hash = await encrypt.hashPassword(password);
 
@@ -43,8 +43,8 @@ const create = async (userData) => {
     return await user.save();
 };
 
-const getByUsername = async (username) => {
-    return await userDetail.findOne({ username }).exec();
+const getByUsername = async (userName) => {
+    return await userDetail.findOne({ userName }).exec();
 };
 
 const authenticate = async (user, password) => {
@@ -60,7 +60,7 @@ const updateUser = async (id, userData) => {
         lastName, 
         password, 
         age, 
-        birthDay, 
+        birthDate, 
         gender, 
         email,
         mobileNumber, 
@@ -71,12 +71,12 @@ const updateUser = async (id, userData) => {
   
     const hash = await encrypt.hashPassword(password);
   
-    return await User.model.findByIdAndUpdate(id, {userName,
+    return await userDetail.findByIdAndUpdate(id, {userName,
         firstName, 
         lastName, 
         password: hash, 
         age, 
-        birthDay, 
+        birthDate, 
         gender, 
         email,
         mobileNumber, 
@@ -90,7 +90,7 @@ const disableUser = async (id) => {
       const status = false
       //const hash = await encrypt.hashPassword(password);
   
-    return await User.model.findByIdAndUpdate(id, {status}).exec();  
+    return await userDetail.findByIdAndUpdate(id, {status}).exec();  
 };
 
 module.exports = {

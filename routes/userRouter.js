@@ -43,6 +43,15 @@ router.use(authHandler);
 router.post("/", async (req, res, next)=> {
   try { 
     const userData = req.body; 
+    const userChecked = await users.getByUsername(userData.userName);
+    
+    if(userChecked) {
+      res.status(409).json({
+        ok: false,
+        message: "UserName already taken",
+      });
+    };
+
     const userCreated = await users.create(userData);
 
     res.status(201).json({ 
@@ -51,7 +60,11 @@ router.post("/", async (req, res, next)=> {
       payload: userCreated,
     });
   } catch (err) {
-    next(err);
+    res.status(400).json({
+      ok: false,
+      message: "User can't be created",
+      error: err.message
+    });
   }
 }); 
 
