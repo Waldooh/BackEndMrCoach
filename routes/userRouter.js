@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router()
-const users = require("../usecases/users");
+const users = require("../usecases/userCase");
+const authHandler = require("../middlewares/authHandler");
 
 router.get("/", async (req, res, next) => {
   try {
@@ -15,6 +16,30 @@ router.get("/", async (req, res, next) => {
   };
 });
 
+
+router.get("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userById = await users.getById(id)
+
+    res.json({
+      ok: true,
+      message: "User found",
+      payload: userById,
+    });
+  } catch (err) {
+    res.status(400).json({
+      ok: false,
+      message: "Ups! User not found...",
+      error: err.message
+    });
+  }
+});
+
+
+router.use(authHandler);
+
+
 router.post("/", async (req, res, next)=> {
   try { 
     const userData = req.body; 
@@ -24,10 +49,9 @@ router.post("/", async (req, res, next)=> {
       ok: true,
       message: "New user created", 
       payload: userCreated,
-      
     });
-  } catch (error){
-    next(error);
+  } catch (err) {
+    next(err);
   }
 }); 
 

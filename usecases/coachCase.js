@@ -1,5 +1,5 @@
-const CoachDetail = require("../../models/CoachDetail").model;
-const Coach = require("../../models/CoachDetail");
+const CoachDetail = require("../models/CoachDetail").model;
+const Coach = require("../models/CoachDetail");
 
 
 const get = async () => {

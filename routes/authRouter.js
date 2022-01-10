@@ -1,6 +1,6 @@
 const express = require("express");
 const jwt = require("../lib/jwt");
-const users = require("../usecases/users");
+const users = require("../usecases/userCase");
 
 const router = express.Router();
 
@@ -31,3 +31,6 @@ router.post("/", async (req, res, next) => {
         });
     }
 });
+
+
+module.exports = router;

@@ -1,6 +1,6 @@
-const userDetail = require("../../models/UserDetail").model;
-const User = require("../../models/UserDetail");
-const encrypt = require("../../lib/encrypt");
+const userDetail = require("../models/UserDetail").model;
+// const User = require("../models/UserDetail");
+const encrypt = require("../lib/encrypt");
 const MUUID = require("uuid-mongodb");
 
 const get = async () => {
@@ -9,8 +9,9 @@ const get = async () => {
 };
 
 const getById = async (id) => {
-    return await User.model.findById(id).exec();
-  };
+    const oneUser = await userDetail.findById(id).exec();
+    return oneUser;
+};
   
   
 const create = async (userData) => {
@@ -21,7 +22,7 @@ const create = async (userData) => {
     const status = 1;
     const hash = await encrypt.hashPassword(password);
 
-    const user = new User.model({
+    const user = new userDetail({
         uuid,
         userName,
         firstName,
@@ -43,7 +44,7 @@ const create = async (userData) => {
 };
 
 const getByUsername = async (username) => {
-    return await User.model.findOne({ username }).exec();
+    return await userDetail.findOne({ username }).exec();
 };
 
 const authenticate = async (user, password) => {
@@ -53,18 +54,20 @@ const authenticate = async (user, password) => {
   
 const updateUser = async (id, userData) => {
   
-    const {userName, 
-           firstName,
-           lastName, 
-           password, 
-           age, 
-           birthDay, 
-           gender, 
-           email,
-           mobileNumber, 
-           state, 
-           city, 
-           avatar} = userData;
+    const {
+        userName, 
+        firstName,
+        lastName, 
+        password, 
+        age, 
+        birthDay, 
+        gender, 
+        email,
+        mobileNumber, 
+        state, 
+        city, 
+        avatar
+        } = userData;
   
     const hash = await encrypt.hashPassword(password);
   

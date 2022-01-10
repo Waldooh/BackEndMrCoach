@@ -5,14 +5,16 @@ const db = require("./lib/db");
 const apiRouter = require("./routes");
 
 
-app.use(express.json())
+app.use(express.json());
+
+app.get("/", (req, res) => {
+    res.send("<h1>Hello Mrs. !</h1>");
+});
 
 apiRouter(app);
 
 app.listen(port, () => {
-
-    console.log("Listening on port:", port);
-
+    console.log(`Listening on port: http://localhost:${port}`);
     db.connect().then(() => {
         console.log("DB Connect");
     }).catch((err) => {

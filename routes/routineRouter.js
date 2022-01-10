@@ -1,33 +1,33 @@
 const express = require("express");
 const router = express.Router();
-const routines = require("../usecases/routines");
+const routines = require("../usecases/routineCase");
 
 router.get("/", async (req, res, next) => {
-    try {
-        const allRoutines = await routines.get()
-        res.json({
-            ok: true,
-            message: "Done!",
-            payload: { allRoutines },
-        });
-    } catch (err) {
-        next(err)
-    };
+  try {
+    const allRoutines = await routines.get()
+    res.json({
+      ok: true,
+      message: "Done!",
+      payload: { allRoutines },
+    });
+  } catch (err) {
+    next(err)
+  };
 });
 
-router.post ("/", async (request, response, next)=> {
+router.post ("/", async (req, res, next)=> {
   try { 
-    const routineData = request.body; 
+    const routineData = req.body; 
     const routineCreated = await routines.create(routineData);
 
-    response.status(201).json({ 
+    res.status(201).json({ 
       ok:true,
       message: "New routine created", 
       payload: routineCreated,
       
     });
-  } catch (error) {
-    next(error);
+  } catch (err) {
+    next(err);
   }
 }); 
 
@@ -38,11 +38,11 @@ router.get("/:id", async (req, res, next) => {
   
     const payload = await routines.getById(id);
   
-      res.status(200).json({
-        ok: true,
-        message: "Done!",
-        payload,
-      });
+    res.status(200).json({
+      ok: true,
+      message: "Done!",
+      payload,
+    });
   } catch (err) {
     next(err);
   }

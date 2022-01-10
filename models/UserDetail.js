@@ -11,6 +11,7 @@ const schema = new Schema({
         type: String,
         maxlength: 40,
         minlength: 1,
+        unique: true,
     },
     firstName: {
         type: String,
@@ -21,6 +22,15 @@ const schema = new Schema({
         type: String,
         maxlength: 50,
         minlength: 1,
+    },
+    email: {
+        type: String,
+        required: true,
+        match: /.+@.*\..*/
+    },
+    password: {
+        type: String,
+        required: true,
     },
     age: {
         type: Number,
@@ -33,11 +43,6 @@ const schema = new Schema({
     gender: {
         type: String,
         maxlength: 10,
-        minlength: 1,
-    },
-    email: {
-        type: String,
-        maxlength: 50,
         minlength: 1,
     },
     initialTime: {
@@ -68,12 +73,11 @@ const schema = new Schema({
     },
     account: {
         type: Number,
-        max: 2,
-        min: 1,
+        max: 3,
     },
 }, { timestamps: true }); 
 
-module.exports= {
+module.exports = {
     model: mongoose.model("userDetail", schema),
     schema,
 }
