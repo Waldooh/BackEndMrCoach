@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router()
 const users = require("../usecases/userCase");
 const authHandler = require("../middlewares/authHandler");
+const coaches = require("../models/Coaches");
 
 router.get("/", async (req, res, next) => {
   try {
@@ -40,7 +41,7 @@ router.get("/:id", async (req, res) => {
 router.use(authHandler);
 
 
-router.post("/", async (req, res, next)=> {
+router.post("/", async (req, res)=> {
   try { 
     const userData = req.body; 
     const userChecked = await users.getByUsername(userData.userName);
@@ -72,47 +73,46 @@ router.post("/", async (req, res, next)=> {
 router.patch("/:id", async (req, res) => {
   const { id } = req.params;
   const { 
-    account, 
     accountDetails, 
-    name, 
+    firstName, 
     lastName, 
     age, 
     birthDate, 
     gender, 
     email,
-    initialTime,
     status,
     mobileNumber,
     state,
     city,
     avatar,
+    account, 
   } = req.body;
   
-  let checkUser = await users.getById(id)
+  let userChecked = await users.getById(id)
   let newUser = {}
 
-  if(name) newUser = {...newUser, name}
+  if(firstName) newUser = {...newUser, firstName}
   if(lastName) newUser = {...newUser, lastName}
   if(age) newUser = {...newUser, age}
   if(birthDate) newUser = {...newUser, birthDate}
   if(gender) newUser = {...newUser, gender}
   if(email) newUser = {...newUser, email}
-  if(initialTime) newUser = {...newUser, initialTime}
   if(status) newUser = {...newUser, status}
   if(mobileNumber) newUser = {...newUser, mobileNumber}
   if(state) newUser = {...newUser, state}
   if(city) newUser = {...newUser, city}
   if(avatar) newUser = {...newUser, avatar}
 
-    if(checkUser.account === 1) { 
+    if(userChecked.account === "usuario") { 
 
-      if(account && account !== 1) {
+      if(account && account !== "usuario") {
         newUser = {...newUser, account}
 
-        if(account === 2) {
-          const coachCreated = await coach.create(accountDetails);     
+        if(account === "entrenador") {
+          console.log("newUser: ", newUser)
+          const coachCreated = await coaches.create(accountDetails);     
           updatedUser = {...updatedUser, accountDetails: coachCreated}
-        } else if (account === 3) {
+        } else if (account === "alumno") {
           const studentCreated = await student.create(accountDetails);
           updatedUser = {...updatedUser, accountDetails: studentCreated};
         };

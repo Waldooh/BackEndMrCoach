@@ -18,20 +18,12 @@ const schema = new Schema({
     },
     discipline: {
         type: String,
-        maxlength: 5,
-        minlength: 1,
-    },
-    studyCertificate: {
-        type: String,
-        maxlength: 150,
+        maxlength: 30,
         minlength: 1,
     },
     paymentService: {
         type: Number,
         max: 20,
-    },
-    initialTimeCouch: {
-        timestamp: true
     },
     comments: {
         type: String,
@@ -53,9 +45,9 @@ const schema = new Schema({
         minlength: 1,
     },
     
-}); 
+}, { timestamps: true }); 
 
 module.exports = {
-    model: mongoose.model("coachDetail", schema),
+    model: mongoose.model("coaches", schema),
     schema,
 }

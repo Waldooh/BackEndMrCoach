@@ -83,6 +83,6 @@ const schema = new Schema({
 }); 
 
 module.exports= {
-    model: mongoose.model("studentDetail", schema),
+    model: mongoose.model("students", schema),
     schema,
 }

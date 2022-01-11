@@ -1,4 +1,5 @@
 const mongoose = require("mongoose"); 
+const { any } = require("webidl-conversions");
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
@@ -45,9 +46,9 @@ const schema = new Schema({
         maxlength: 10,
         minlength: 1,
     },
-    initialTime: {
-        type: Date,
-    },
+    // initialTime: {
+    //     type: Date,
+    // },
     status: {
         type: Boolean,
     },
@@ -75,10 +76,10 @@ const schema = new Schema({
         type: String,
         enum: ['usuario', 'entrenador', 'alumno'],
         required: true
-    },
+    }
 }, { timestamps: true }); 
 
 module.exports = {
-    model: mongoose.model("userDetail", schema),
+    model: mongoose.model("users", schema),
     schema,
 }

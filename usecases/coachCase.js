@@ -1,40 +1,42 @@
-const CoachDetail = require("../models/CoachDetail").model;
-const Coach = require("../models/CoachDetail");
+const coaches = require("../models/Coaches").model;
+// const Coach = require("../models/Coaches");
 
 
 const get = async () => {
-    const allCoachesDetail = await CoachDetail.find({}).exec();
-    return allCoachesDetail;
+    const allCoaches = await coaches.find({}).exec();
+    return allCoaches;
 };
 
 
 const create = async (coachData) => {
     const { 
         discipline,
-        studyCertificate,
         paymentService,
-        initialTimeCouch,
         comments,
         scoreStudent,
         video1,
         video2,
-     } = coachData;
-    const coach = new CoachDetail({ 
+        } = coachData;
+    const coach = new coaches({ 
         discipline,
-        studyCertificate,
         paymentService,
-        initialTimeCouch,
         comments,
         scoreStudent,
         video1,
         video2,
-    })
+    });
     const savedCoach = await coach.save();
-
     return savedCoach;
-}
+};
 
 
 const updateCoach = async (id, coachData) => {
-    return await CoachDetail.findByIdAndUpdate(id, coachData, { new: true })
-}
+    return await coaches.findByIdAndUpdate(id, coachData, { new: true })
+};
+
+
+module.exports = {
+    get,
+    create,
+    updateCoach
+};
