@@ -30,11 +30,11 @@ const schema = new Schema({
         maxlength: 20,
         minlength: 1,
     },
-    timeInicial: {
-        type: String,
-        maxlength: 20,
-        minlength: 1,
-    },
+    // timeInicial: {
+    //     type: String,
+    //     maxlength: 20,
+    //     minlength: 1,
+    // },
     payment: {
         type: String,
         maxlength: 20,
@@ -80,7 +80,7 @@ const schema = new Schema({
         minlength: 1,
     },
     
-}); 
+}, { timestamps: true }); 
 
 module.exports= {
     model: mongoose.model("students", schema),

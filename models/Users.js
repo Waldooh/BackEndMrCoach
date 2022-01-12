@@ -1,5 +1,4 @@
 const mongoose = require("mongoose"); 
-const { any } = require("webidl-conversions");
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
@@ -12,7 +11,6 @@ const schema = new Schema({
         type: String,
         maxlength: 40,
         minlength: 1,
-        unique: true,
     },
     firstName: {
         type: String,
@@ -23,10 +21,12 @@ const schema = new Schema({
         type: String,
         maxlength: 50,
         minlength: 1,
+
     },
     email: {
         type: String,
         required: true,
+        unique: true,
         match: /.+@.*\..*/
     },
     password: {
@@ -75,7 +75,7 @@ const schema = new Schema({
     account: {
         type: String,
         enum: ['usuario', 'entrenador', 'alumno'],
-        required: true
+        default: 'usuario'
     }
 }, { timestamps: true }); 
 

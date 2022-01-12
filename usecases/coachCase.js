@@ -1,5 +1,4 @@
 const coaches = require("../models/Coaches").model;
-// const Coach = require("../models/Coaches");
 
 
 const get = async () => {
