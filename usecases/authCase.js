@@ -1,13 +1,11 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const users = require("../models/Users").model;
-// const encrypt = require("../lib/encrypt"); // Borrar
-// const jwt = require("../lib/jwt"); // Borrar
 
 
-const signup = async (email, password) => {
+const signup = async (email, password, firstName, lastName) => {
   const hashPassword = await bcrypt.hash(password, 10);
-  return users.create({ email, password: hashPassword })
+  return users.create({ email, password: hashPassword, firstName, lastName })
 }
 
 const login = async (email, password) => {

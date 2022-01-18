@@ -7,10 +7,10 @@ const router = express.Router();
 
 router.post("/signup", async (req, res) => {
   try {
-    const { email, password, } = req.body;
-    const userCreated = await auth.signup(email, password);
+    const { email, password, firstName, lastName } = req.body;
+    const userCreated = await auth.signup(email, password, firstName, lastName);
     // console.log("usuario creado: ", userCreated)
-    res.json({
+    res.status(201).json({
       ok: true,
       message: "Signup successfully!",
       payload: {
@@ -31,8 +31,6 @@ router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     const { userId, token } = await auth.login(email, password)
-    // const user = await users.getByUsername(userName);
-    // const payload = await auth.login(email, password);
 
     res.status(200).json({
       ok: true,

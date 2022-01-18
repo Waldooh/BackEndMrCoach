@@ -28,9 +28,7 @@ const create = async (userData) => {
     city, 
     avatar 
     } = userData;
-  const uuid = MUUID.v1();
-  // const today = new Date();
-  const account = "usuario";
+
   const status = 1;
   const hash = await encrypt.hashPassword(password);
 
@@ -58,6 +56,7 @@ const getByUsername = async (userName) => {
   return await users.findOne({ userName }).exec();
 };
 
+// ya no se necesita esta función aquí
 const authenticate = async (user, password) => {
   const hash = user.password;
   return await encrypt.verifyPassword(password, hash);
