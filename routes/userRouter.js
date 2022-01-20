@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router()
 const users = require("../usecases/userCase");
+const coaches = require("../usecases/coachCase");
 const authHandler = require("../middlewares/authHandler");
-const coaches = require("../models/Coaches");
+// const coaches = require("../models/Coaches");
 
 router.get("/", async (req, res, next) => {
   try {
@@ -71,61 +72,46 @@ router.post("/", async (req, res)=> {
 
 
 router.patch("/:id", async (req, res) => {
-  const { id } = req.params;
-  const { 
-    accountDetails, 
-    firstName, 
-    lastName, 
-    age, 
-    birthDate, 
-    gender, 
-    email,
-    status,
-    mobileNumber,
-    state,
-    city,
-    avatar,
-    account, 
-  } = req.body;
+  try {
+    const { id } = req.params;
+    const { firstName, lastName, email, account, } = req.body;
+    
+    let userChecked = await users.getById(id)
+    let newUser = {}
+
+    if(firstName) newUser = {...newUser, firstName}
+    if(lastName) newUser = {...newUser, lastName}
+    if(email) newUser = {...newUser, email}
   
-  let userChecked = await users.getById(id)
-  let newUser = {}
-
-  if(firstName) newUser = {...newUser, firstName}
-  if(lastName) newUser = {...newUser, lastName}
-  if(age) newUser = {...newUser, age}
-  if(birthDate) newUser = {...newUser, birthDate}
-  if(gender) newUser = {...newUser, gender}
-  if(email) newUser = {...newUser, email}
-  if(status) newUser = {...newUser, status}
-  if(mobileNumber) newUser = {...newUser, mobileNumber}
-  if(state) newUser = {...newUser, state}
-  if(city) newUser = {...newUser, city}
-  if(avatar) newUser = {...newUser, avatar}
-
     if(userChecked.account === "usuario") { 
-
+  
       if(account && account !== "usuario") {
         newUser = {...newUser, account}
-
-        if(account === "entrenador") {
+  
+        if(newUser.account === "entrenador") {
           console.log("newUser: ", newUser)
-          const coachCreated = await coaches.create(accountDetails);     
-          updatedUser = {...updatedUser, accountDetails: coachCreated}
+          const coachCreated = await coaches.create(newUser);     
+          updatedUser = {...updatedUser, coachCreated}
         } else if (account === "alumno") {
-          const studentCreated = await student.create(accountDetails);
-          updatedUser = {...updatedUser, accountDetails: studentCreated};
+          const studentCreated = await student.create(newUser);
+          updatedUser = {...updatedUser, newUser: studentCreated};
         };
       };
+      // return updatedUser;
     };
-
-  let updatedUser = await users.updateUser(id, newUser)
+    // let updatedUser = await coaches.get(id)
   
-  res.json({
-    ok: true,
-    message: `User updated successfully!`,
-    payload: { updatedUser },
-  });
+    let updatedUser = await users.updateCoach(id, newUser)
+    
+    res.status(200).json({
+      ok: true,
+      message: `User updated successfully!`,
+      payload: { updatedUser },
+    });
+  } catch(error) {
+    console.error("algo salió mal",error)
+  }
+
 });
 
 
