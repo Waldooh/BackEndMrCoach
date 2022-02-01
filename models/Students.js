@@ -2,35 +2,50 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-    uuid: {
+    firstName: {
+        type: String,
+        maxlength: 40,
+        minlength: 1,
+    },
+    lastName: {
+        type: String,
+        maxlength: 50,
+        minlength: 1,
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        match: /.+@.*\..*/
+    },
+    password: {
+        type: String,
+        required: true,
+    },
+    gender: {
         type: String,
         maxlength: 10,
         minlength: 1,
     },
-    idUser: {
-        type: String,
-        maxlength: 10,
-        minlength: 1,
-    },
-    idCoach: {
-        type: String,
-        maxlength: 10,
-        minlength: 1,
-    },
+    // idUser: {
+    //     type: String,
+    //     maxlength: 10,
+    //     minlength: 1,
+    // },
+    // idCoach: {
+    //     type: String,
+    //     maxlength: 10,
+    //     minlength: 1,
+    // },
     healthGoal: {
         type: String,
         maxlength: 20,
         minlength: 1,
     },
-    experience: {
-         type: Boolean,
-    },
-    timeExperience: {
+    workoutFrequency: {
         type: String,
-        maxlength: 20,
-        minlength: 1,
     },
-    // timeInicial: {
+    // timeExperience: {
     //     type: String,
     //     maxlength: 20,
     //     minlength: 1,
@@ -42,18 +57,17 @@ const schema = new Schema({
     },
     paymentStatus: {
         type: Boolean,
-        
     },
     metricSystem: {
         type: String,
         maxlength: 30,
         minlength: 1,
     },
-    comments: {
-        type: String,
-        maxlength: 150,
-        minlength: 1,
-    },
+    // comments: {
+    //     type: String,
+    //     maxlength: 150,
+    //     minlength: 1,
+    // },
     scoreCoach: {
         type: Number,
         max: 5,
@@ -63,6 +77,11 @@ const schema = new Schema({
     },
     weight: {
        type: Number,
+    },
+    age: {
+        type: Number,
+        max: 99,
+        min: 1,
     },
     photoBody1: {
         type: String,

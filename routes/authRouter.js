@@ -30,14 +30,15 @@ router.post("/signup", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
-    const { userId, token } = await auth.login(email, password)
+    const { userId, token, account } = await auth.login(email, password)
 
     res.status(200).json({
       ok: true,
       message: "Login successfully!",
       payload: {
         userId,
-        token
+        token,
+        account // <-- temporalmente para pruebas
       }
     });
   } catch (error) {

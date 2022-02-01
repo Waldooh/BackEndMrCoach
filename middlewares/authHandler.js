@@ -1,10 +1,11 @@
 const jwt = require("../lib/jwt");
 
 
-const authHandler = (req, res, next) => {
+const authHandler = async (req, res, next) => {
   try {
-    const { authentication: token } = req.headers
-    const decodedToken = jwt.verify(token)
+    const { authorization: token } = req.headers
+    const decodedToken = await jwt.verify(token)
+    console.log("token", decodedToken);
     if(!decodedToken) throw new Error("Unauthorized!")
     next()
   } catch (error) {

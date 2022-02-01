@@ -15,7 +15,6 @@ const getById = async (id) => {
   
 const create = async (userData) => {
   const { 
-    userName, 
     firstName, 
     lastName, 
     password, 

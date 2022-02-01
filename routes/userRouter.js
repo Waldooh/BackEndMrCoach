@@ -1,20 +1,22 @@
 const express = require("express");
-const router = express.Router()
+const router = express.Router();
 const users = require("../usecases/userCase");
 const coaches = require("../usecases/coachCase");
 const authHandler = require("../middlewares/authHandler");
 // const coaches = require("../models/Coaches");
 
+router.use(authHandler);
+
 router.get("/", async (req, res, next) => {
   try {
-    const allUsers = await users.get()
+    const allUsers = await users.get();
     res.json({
       ok: true,
       message: "Done!",
       payload: { allUsers },
     });
   } catch (err) {
-    next(err)
+    next(err);
   };
 });
 
@@ -22,7 +24,7 @@ router.get("/", async (req, res, next) => {
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const userById = await users.getById(id)
+    const userById = await users.getById(id);
 
     res.json({
       ok: true,
@@ -39,12 +41,9 @@ router.get("/:id", async (req, res) => {
 });
 
 
-router.use(authHandler);
-
-
 router.post("/", async (req, res)=> {
   try { 
-    const userData = req.body; 
+    const userData = req.body; // cambiar lógica para userChecked 
     const userChecked = await users.getByUsername(userData.userName);
     
     if(userChecked) {
@@ -78,6 +77,7 @@ router.patch("/:id", async (req, res) => {
     
     let userChecked = await users.getById(id)
     let newUser = {}
+    let queso = {}
 
     if(firstName) newUser = {...newUser, firstName}
     if(lastName) newUser = {...newUser, lastName}
@@ -90,23 +90,24 @@ router.patch("/:id", async (req, res) => {
   
         if(newUser.account === "entrenador") {
           console.log("newUser: ", newUser)
-          const coachCreated = await coaches.create(newUser);     
-          updatedUser = {...updatedUser, coachCreated}
+          const coachCreated = await coaches.create(newUser);
+          console.log("coach:",coachCreated)
+          // con calmita crear en nuevo coach
         } else if (account === "alumno") {
           const studentCreated = await student.create(newUser);
-          updatedUser = {...updatedUser, newUser: studentCreated};
+          queso = {...queso, newUser: studentCreated};
         };
       };
-      // return updatedUser;
+      return coachCreated;
     };
     // let updatedUser = await coaches.get(id)
   
-    let updatedUser = await users.updateCoach(id, newUser)
+    let coachCreated = await coaches.updateCoach(id, newUser)
     
     res.status(200).json({
       ok: true,
       message: `User updated successfully!`,
-      payload: { updatedUser },
+      payload: { coach: coachCreated },
     });
   } catch(error) {
     console.error("algo salió mal",error)

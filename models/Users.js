@@ -46,9 +46,6 @@ const schema = new Schema({
         maxlength: 10,
         minlength: 1,
     },
-    // initialTime: {
-    //     type: Date,
-    // },
     status: {
         type: Boolean,
     },

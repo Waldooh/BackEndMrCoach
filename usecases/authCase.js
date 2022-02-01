@@ -20,6 +20,7 @@ const login = async (email, password) => {
   const token = jwt.sign({ 
     userId: userFound._id,
     userName: userFound.userName,
+    userAccount: userFound.account
   }, process.env.SECRET)
   return { 
     userName: userFound.userName,
