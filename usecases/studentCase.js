@@ -1,47 +1,39 @@
-const students = require("../models/Students").model;
+const User = require("../models/Users").model;
 const encrypt = require("../lib/encrypt");
 
 
 const get = async () => {
-  const allStudents = await students.find({}).exec();
+  const allStudents = await User.find({}).exec();
   return allStudents;
 };
 
 
 const create = async (studentData) => {
   const { 
-    firstName, 
-    lastName, 
-    email,
-    password, 
     healthGoal,
     workoutFrecuency,
-    payment,
-    paymentStatus,
-    metricStystem,
-    scoreCoach,
+    metricSystem,
     height,
     weight,
     age,
+    gender,
     photoBody1,
     photoBody2,
     photoBody3
     } = studentData;
   const hash = await encrypt.hashPassword(password);
-  const student = new students({ 
+  const student = new User({ 
     firstName, 
     lastName, 
     email,
     password: hash, 
     healthGoal,
     workoutFrecuency,
-    payment,
-    paymentStatus,
-    metricStystem,
-    scoreCoach,
+    metricSystem,
     height,
     weight,
     age,
+    gender,
     photoBody1,
     photoBody2,
     photoBody3
@@ -51,9 +43,40 @@ const create = async (studentData) => {
 };
 
 
-const updateStudent = async (id, studentData) => {
-  return await students.findByIdAndUpdate(id, studentData, { new: true })
-};
+const updateStudent = async (studentData) => {
+  console.log("student:", studentData)
+  const {
+    id,
+    healthGoal,
+    workoutFrecuency,
+    metricSystem,
+    height,
+    weight,
+    age,
+    gender,
+    payment,
+    paymentStatus,
+    scoreCoach,
+    photoBody1,
+    photoBody2,
+    photoBody3 
+    } = studentData;
+  return await User.findByIdAndUpdate(id,
+    { healthGoal,
+      workoutFrecuency,
+      metricSystem,
+      height,
+      weight,
+      age,
+      gender,
+      payment,
+      paymentStatus,
+      scoreCoach,
+      photoBody1,
+      photoBody2,
+      photoBody3 },
+      { new: true }).exec();
+  };
 
 
 module.exports = {

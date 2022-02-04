@@ -3,9 +3,9 @@ const jwt = require("jsonwebtoken");
 const users = require("../models/Users").model;
 
 
-const signup = async (email, password, firstName, lastName) => {
+const signup = async (email, password, firstName, lastName, account) => {
   const hashPassword = await bcrypt.hash(password, 10);
-  return users.create({ email, password: hashPassword, firstName, lastName })
+  return users.create({ email, password: hashPassword, firstName, lastName, account })
 }
 
 const login = async (email, password) => {
@@ -19,11 +19,9 @@ const login = async (email, password) => {
 
   const token = jwt.sign({ 
     userId: userFound._id,
-    userName: userFound.userName,
     userAccount: userFound.account
   }, process.env.SECRET)
   return { 
-    userName: userFound.userName,
     userId: userFound._id,
     account: userFound.account,
     token: token

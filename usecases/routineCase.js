@@ -9,7 +9,7 @@ const get = async () => {
 };
 
 const getById = async (id) => {
-  return await Routines.model.findById(id).exec();
+  return await routinesDetail.findById(id).exec();
 };
   
   

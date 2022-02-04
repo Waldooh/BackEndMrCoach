@@ -7,8 +7,8 @@ const router = express.Router();
 
 router.post("/signup", async (req, res) => {
   try {
-    const { email, password, firstName, lastName } = req.body;
-    const userCreated = await auth.signup(email, password, firstName, lastName);
+    const { email, password, firstName, lastName, account } = req.body;
+    const userCreated = await auth.signup(email, password, firstName, lastName, account);
     // console.log("usuario creado: ", userCreated)
     res.status(201).json({
       ok: true,

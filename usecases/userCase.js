@@ -1,14 +1,13 @@
-const users = require("../models/Users").model;
+const User = require("../models/Users").model;
 const encrypt = require("../lib/encrypt");
-const MUUID = require("uuid-mongodb");
 
 const get = async () => {
-  const allUsers = await users.find({}).sort({createdAt:-1}).exec();
+  const allUsers = await User.find({}).sort({createdAt:-1}).exec();
   return allUsers;
 };
 
 const getById = async (id) => {
-  const oneUser = await users.findById(id).exec();
+  const oneUser = await User.findById(id).exec();
   return oneUser;
 };
   
@@ -28,12 +27,9 @@ const create = async (userData) => {
     avatar 
     } = userData;
 
-  const status = 1;
   const hash = await encrypt.hashPassword(password);
 
-  const user = new users({
-    uuid,
-    userName,
+  const user = new User({
     firstName,
     lastName,
     password: hash,
@@ -41,7 +37,6 @@ const create = async (userData) => {
     birthDate,
     gender,
     email,
-    status,
     mobileNumber,
     state,
     city,
@@ -52,18 +47,12 @@ const create = async (userData) => {
 };
 
 const getByUsername = async (userName) => {
-  return await users.findOne({ userName }).exec();
+  return await User.findOne({ userName }).exec();
 };
 
-// ya no se necesita esta función aquí
-const authenticate = async (user, password) => {
-  const hash = user.password;
-  return await encrypt.verifyPassword(password, hash);
-};
   
 const updateUser = async (id, userData) => {
   const {
-    userName, 
     firstName,
     lastName, 
     password, 
@@ -78,7 +67,8 @@ const updateUser = async (id, userData) => {
     } = userData;
   const hash = await encrypt.hashPassword(password);
   
-  return await users.findByIdAndUpdate(id, {userName,
+  return await User.findByIdAndUpdate(id, 
+    {
     firstName, 
     lastName, 
     password: hash, 
@@ -89,7 +79,8 @@ const updateUser = async (id, userData) => {
     mobileNumber, 
     state, 
     city, 
-    avatar}).exec();  
+    avatar
+  }).exec();  
 };
 
 const disableUser = async (id) => {
@@ -97,7 +88,7 @@ const disableUser = async (id) => {
   const status = false
   //const hash = await encrypt.hashPassword(password);
   
-  return await users.findByIdAndUpdate(id, {status}).exec();  
+  return await User.findByIdAndUpdate(id, {status}).exec();  
 };
 
 module.exports = {
@@ -107,5 +98,4 @@ module.exports = {
   updateUser,
   disableUser,
   getByUsername,
-  authenticate,
 };

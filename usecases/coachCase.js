@@ -1,14 +1,14 @@
-const coaches = require("../models/Coaches").model;
+const User = require("../models/Users").model;
 const encrypt = require("../lib/encrypt");
 
 
 const get = async () => {
-  const allCoaches = await coaches.find({}).sort({createdAt:-1}).exec();
+  const allCoaches = await User.find({}).sort({createdAt:-1}).exec();
   return allCoaches;
 };
 
 const getById = async (id) => {
-  const oneCoach = await coaches.findById(id).exec();
+  const oneCoach = await User.findById(id).exec();
   return oneCoach;
 };
 
@@ -31,7 +31,7 @@ const create = async (coachData) => {
     account
     } = coachData;
   const hash = await encrypt.hashPassword(password);
-  const coach = new coaches({ 
+  const coach = new User({ 
     firstName, 
     lastName, 
     email,
@@ -52,12 +52,36 @@ const savedCoach = await coach.save();
 return savedCoach;
 };
 
-const updateCoach = async (id, coachData) => {
-  return await coaches.findByIdAndUpdate(id, coachData, { new: true })
+const updateCoach = async (coachData) => {
+  console.log("coach:", coachData)
+  const {
+    id,
+    mobileNumber,
+    birthDate,
+    discipline,
+    country,
+    state, 
+    city, 
+    description,
+    coments,
+    avatar,
+  } = coachData;
+  return await User.findByIdAndUpdate(id, 
+    { mobileNumber,
+    birthDate,
+    discipline,
+    country,
+    state, 
+    city, 
+    description,
+    coments,
+    avatar }, 
+    { new: true }).exec();
 };
 
 module.exports = {
   get,
   create,
+  getById,
   updateCoach
 };

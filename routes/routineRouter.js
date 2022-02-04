@@ -24,7 +24,6 @@ router.post ("/", async (req, res, next)=> {
       ok:true,
       message: "New routine created", 
       payload: routineCreated,
-      
     });
   } catch (err) {
     next(err);
@@ -35,7 +34,6 @@ router.post ("/", async (req, res, next)=> {
 router.get("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
-  
     const payload = await routines.getById(id);
   
     res.status(200).json({
