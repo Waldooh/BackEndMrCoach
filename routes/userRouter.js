@@ -41,7 +41,7 @@ router.get("/:id", authHandler, async (req, res) => {
 
 router.post("/", async (req, res)=> {
   try { 
-    const userData = req.body; // cambiar lógica para userCheck 
+    const userData = req.body;
     const userCreated = await users.create(userData);
 
     res.status(201).json({ 
@@ -89,7 +89,6 @@ router.patch("/:id", authHandler, async (req, res) => {
     let newUser = { id };
     let userCheck = await users.getById(id);
     
-    console.log("User checked", userCheck)
     if(userCheck.account && userCheck.account === "alumno") {
       if(healthGoal) newUser = {...newUser, healthGoal}
       if(workoutFrecuency) newUser = {...newUser, workoutFrecuency}

@@ -92,7 +92,7 @@ const schema = new Schema({
     // },
     // ------------------------ Coach info -------------------------------
     birthDate: {
-        type: Date,  // se tiene que guardar en formato ISODate ("yyyy-mm-dd")
+        type: Date,  // se guarda en formato ISODate ("yyyy-mm-dd")
     },
     mobileNumber: {
         type: String,

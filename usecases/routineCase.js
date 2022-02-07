@@ -1,7 +1,6 @@
 const routinesDetail = require("../models/Routines").model;
 const Routines = require("../models/Routines");
-const encrypt = require("../lib/encrypt");
-const MUUID = require("uuid-mongodb");
+// const encrypt = require("../lib/encrypt");
 
 const get = async () => {
   const allRoutines = await routinesDetail.find({}).exec();

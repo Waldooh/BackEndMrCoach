@@ -1,20 +1,27 @@
 const express = require("express");
-const jwt = require("../lib/jwt");
+const jwt = require("jsonwebtoken");
 const users = require("../usecases/userCase");
 const auth = require("../usecases/authCase");
 
 const router = express.Router();
 
 router.post("/signup", async (req, res) => {
+  
+  const createToken = (id) => {
+    return jwt.sign({ id }, process.env.SECRET, {expiresIn: "2d"})
+  }
+
   try {
     const { email, password, firstName, lastName, account } = req.body;
     const userCreated = await auth.signup(email, password, firstName, lastName, account);
     // console.log("usuario creado: ", userCreated)
+    const token = createToken(userCreated._id)
     res.status(201).json({
       ok: true,
       message: "Signup successfully!",
       payload: {
-        userCreated
+        userCreated,
+        token
       }
     });
   } catch (error) {
