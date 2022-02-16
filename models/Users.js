@@ -33,6 +33,9 @@ const schema = new Schema({
         enum: ['usuario', 'entrenador', 'alumno'],
         required: true,
     },
+    avatar: {
+        type: String,
+    },
     // ------------------------ Student info -------------------------------
     healthGoal: {
         type: String,
@@ -99,10 +102,8 @@ const schema = new Schema({
         maxlength: 20,
         minlength: 1,
     },
-    avatar: {
+    discipline: {
         type: String,
-        maxlength: 150,
-        minlength: 1,
     },
     country: {
         type: String,

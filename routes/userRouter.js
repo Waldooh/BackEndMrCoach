@@ -97,6 +97,7 @@ router.patch("/:id", authHandler, async (req, res) => {
       if(weight) newUser = {...newUser, weight}
       if(age) newUser = {...newUser, age}
       if(gender) newUser = {...newUser, gender}
+      if(avatar) newUser = {...newUser, avatar}
       if(photoBody1) newUser = {...newUser, photoBody1}
       if(photoBody2) newUser = {...newUser, photoBody2}
       if(photoBody3) newUser = {...newUser, photoBody3}

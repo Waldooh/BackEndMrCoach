@@ -24,7 +24,8 @@ const create = async (userData) => {
     mobileNumber, 
     state, 
     city, 
-    avatar 
+    avatar,
+    account
     } = userData;
 
   const hash = await encrypt.hashPassword(password);

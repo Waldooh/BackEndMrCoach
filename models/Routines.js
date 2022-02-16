@@ -1,4 +1,6 @@
 const { json } = require("express");
+// const User = require("../models/Users").schema;
+// const Exercise = require("../models/Exercises").schema;
 const mongoose = require("mongoose"); 
 const Schema = mongoose.Schema;
 
@@ -9,20 +11,12 @@ const schema = new Schema({
         minlength: 1,
     },
     idUser: {
-        type: String,
-        maxlength: 50,
-        minlength: 1,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Users'
     },
-    idCoach: {
-        type: String,
-        maxlength: 50,
-        minlength: 1,
-    },
-    dateCreation: {
-        type: Date,
-    },
-    initialDate: {
-        type: Date,
+    idWorkout: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Exercises'
     },
     finishDate: {
         type: Date,
@@ -43,7 +37,6 @@ const schema = new Schema({
     },
     cardio: {
         type: JSON,
-
     },
     comments: {
         type: String,
@@ -52,7 +45,7 @@ const schema = new Schema({
     status: {
         type: Boolean,
     },
-}); 
+}, { timestamps: true }); 
 
 module.exports = {
     model: mongoose.model("routine", schema),
