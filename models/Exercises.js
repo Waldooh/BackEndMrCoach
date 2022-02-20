@@ -2,11 +2,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-    uuid: {
-        type: String,
-        maxlength: 150,
-        minlength: 1,
-    },
     title: {
         type: String,
     },
@@ -28,9 +23,6 @@ const schema = new Schema({
     link: {
         type: String, // Investigar tipo de dato para link
     },
-    workoutComplement: {
-        type: Object,
-    }
 }, { timestamps: true });
 
 module.exports = {

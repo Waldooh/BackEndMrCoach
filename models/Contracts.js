@@ -7,11 +7,11 @@ const schema = new Schema({
         ref: 'users',
         required: true
     },
-    // student: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'users',
-    //     required: true
-    // },
+    student: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users',
+        required: true
+    },
     routine: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'routines',

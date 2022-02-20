@@ -10,32 +10,32 @@ const schema = new Schema({
         maxlength: 40,
         minlength: 1,
     },
-    idUser: {
+    coach: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Users'
+        ref: 'users',
+        required: true
     },
-    idWorkout: {
+    student: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Exercises'
+        ref: 'users'
+    },
+    exercise: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'exercises'
+    },
+    rest: {
+        type: String,
     },
     finishDate: {
         type: Date,
     },
-    typeRoutine: {
-      type: String,
-        maxlength: 10,
-        minlength: 1,
-    },
     daysTraining: {
-        type: JSON,
+        type: Date,
     },
-    daysTrained: {
+    daysCompleted: {
         type: JSON,        
     },
-    exercise: {
-        type: JSON,
-    },
-    cardio: {
+    workoutComplement: {
         type: JSON,
     },
     comments: {

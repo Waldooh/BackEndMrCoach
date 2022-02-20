@@ -3,7 +3,7 @@ const Contract = require("../models/Contracts").model;
 const get = async () => {
   const allContracts = await Contract.find({})
   .populate("student")
-  .populate("exersice")
+  // .populate("exersice")
   .populate("coach").exec();
   return allContracts;
 };
