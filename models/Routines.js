@@ -19,28 +19,38 @@ const schema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users'
     },
-    exercise: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'exercises'
-    },
-    rest: {
+    exercise: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'exercises'
+        }
+    ],
+    cardio: {
         type: String,
     },
-    finishDate: {
-        type: Date,
-    },
-    daysTraining: {
-        type: Date,
-    },
-    daysCompleted: {
-        type: JSON,        
-    },
-    workoutComplement: {
-        type: JSON,
-    },
-    comments: {
+    pic: {
         type: String,
-        maxlength: 150,
+    },
+    level: {
+        type: String,
+    },
+    group: {
+        type: String,
+    },
+    start: {
+        type: Date,
+    },
+    end: {
+        type: Date,
+    },
+    days: [
+        {
+            type: String,        
+        }
+    ],
+    notes: {
+        type: String,
+        maxlength: 250,
     },
     status: {
         type: Boolean,

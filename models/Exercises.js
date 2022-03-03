@@ -20,6 +20,9 @@ const schema = new Schema({
     rest: {
         type: String,
     },
+    img: {
+        type: String,
+    },
     link: {
         type: String, // Investigar tipo de dato para link
     },

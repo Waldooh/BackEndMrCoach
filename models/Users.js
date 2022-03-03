@@ -122,7 +122,7 @@ const schema = new Schema({
     },
     description: {
         type: String,
-        maxlength: 150,
+        maxlength: 400,
         minlength: 1,
     },
     coments: {
@@ -144,10 +144,10 @@ const schema = new Schema({
         maxlength: 150,
         minlength: 1,
     },
-    // scoreStudent: {
-    //     type: Number,
-    //     max: 5,
-    // },
+    scoreStudent: {
+        type: Number,
+        max: 5,
+    },
     // paymentService: {
     //     type: Number,
     //     max: 20,

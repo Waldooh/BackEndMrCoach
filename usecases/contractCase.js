@@ -2,15 +2,23 @@ const Contract = require("../models/Contracts").model;
 
 const get = async () => {
   const allContracts = await Contract.find({})
-  .populate("student")
+  .populate("student", {password: 0})
   // .populate("exersice")
-  .populate("coach").exec();
+  .populate("coach", {
+    avatar: 0,
+    password: 0
+  }).exec();
   return allContracts;
 };
 
 
-const getById = async (id) => {
-  const oneContract = await Contract.findById(id).exec();
+const getOne = async (id) => {
+  const oneContract = await Contract.find({coach: id})
+  .populate("student")
+  .populate("coach", {
+    avatar: 0,
+    password: 0
+  }).exec();
   return oneContract;
 };
 
@@ -26,6 +34,6 @@ const create = async (student, coach) => {
 
 module.exports = {
   get,
-  getById,
+  getOne,
   create
 };

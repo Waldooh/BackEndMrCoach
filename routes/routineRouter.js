@@ -88,4 +88,14 @@ router.patch("/:id", async (req, res, next) => {
 });
 
 
+router.delete("/:id", async (req, res) => {
+  const routineDeleted = await routines.deleteRoutine(req.params.id);
+  res.json({
+    ok: true,
+    message: "Deleted, it´s gone!",
+    payload: routineDeleted
+  });
+});
+
+
 module.exports = router;

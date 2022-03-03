@@ -17,6 +17,20 @@ router.get("/", async (req, res, next) => {
   };
 });
 
+router.get("/:id", async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const oneContract = await contract.getOne(id);
+    res.json({
+      ok: true,
+      message: "Done, gatcha!",
+      payload: { oneContract },
+    });
+  } catch (err) {
+    next(err);
+  };
+});
+
 router.post("/:id", async (req, res)=> {
   try { 
     const contractCreated = await contract.create(req.params.id, req.body.coach);
